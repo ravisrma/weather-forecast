@@ -1,0 +1,331 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+body {
+  @apply bg-white text-gray-900;
+}
+
+.dark body {
+  @apply bg-black text-white;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-700 rounded-full hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors;
+}
+
+/* Glass effect */
+.glass-effect {
+  @apply bg-white/50 dark:bg-black/30 backdrop-blur-lg border border-gray-200 dark:border-white/10 
+         hover:bg-white/60 dark:hover:bg-black/40 transition-all duration-300;
+}
+
+/* Optimized transitions for theme switching */
+* {
+  @apply transition-colors duration-150;
+}
+
+/* Only apply transitions to specific properties that need them */
+.theme-transition {
+  transition-property: background-color, border-color, color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Disable transitions for elements that don't need them */
+.no-transition {
+  transition: none !important;
+}
+
+/* Mobile-optimized theme transitions */
+@media (max-width: 640px) {
+  /* Reduce transition duration on mobile */
+  .theme-transition {
+    transition-duration: 100ms;
+    transition-property: background-color, color;
+  }
+
+  /* Disable transitions for less important elements on mobile */
+  .glass-effect,
+  .bg-gradient-to-br,
+  .bg-gradient-to-r,
+  .bg-gradient-to-t,
+  .hover\:bg-white\/60,
+  .hover\:bg-black\/40,
+  .hover\:border-gray-300,
+  .hover\:border-white\/20,
+  .hover\:text-gray-900,
+  .hover\:text-white,
+  .group-hover\:rotate-180,
+  .group-hover\:text-purple-400,
+  .group-hover\:blur-2xl {
+    transition: none !important;
+  }
+
+  /* Optimize backdrop blur for mobile */
+  .backdrop-blur-lg {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Reduce animation complexity */
+  .animate-gradient,
+  .animate-float,
+  .animate-float-reverse,
+  .animate-float-slow,
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-bounce,
+  .animate-spin {
+    animation: none !important;
+  }
+}
+
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Animations */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-25%);
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out forwards;
+}
+
+.animate-bounce {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+/* Responsive text */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* Loading animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Hover effects */
+.hover\:scale-105:hover {
+  transform: scale(1.05) translateZ(0);
+  -webkit-transform: scale(1.05) translateZ(0);
+}
+
+.active\:scale-95:active {
+  transform: scale(0.95) translateZ(0);
+  -webkit-transform: scale(0.95) translateZ(0);
+}
+
+/* Custom utilities */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.weather-gradient {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+.copyright {
+  background: linear-gradient(90deg, #ffffff, #cccccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 8s linear infinite;
+  background-size: 200% auto;
+}
+
+/* Optimize animations with hardware acceleration */
+.animate-gradient,
+.animate-float,
+.animate-float-reverse,
+.animate-float-slow,
+.animate-fade-in,
+.animate-slide-up,
+.animate-bounce,
+.animate-spin {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Reduce motion on mobile */
+@media (prefers-reduced-motion: reduce) {
+  .animate-gradient,
+  .animate-float,
+  .animate-float-reverse,
+  .animate-float-slow,
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-bounce,
+  .animate-spin,
+  .glass-effect,
+  .transition-all,
+  .hover\:scale-105:hover,
+  .active\:scale-95:active {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* Optimize scrollbar for mobile */
+@media (max-width: 640px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .animate-float-slow {
+    animation: float-slow 8s ease-in-out infinite;
+  }
+
+  .animate-bounce {
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+
+  /* Reduce blur effect on mobile for better performance */
+  .glass-effect {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+/* Add touch feedback for mobile */
+@media (hover: none) {
+  .hover\:scale-105:hover {
+    transform: none;
+  }
+  
+  .active\:scale-95:active {
+    transform: scale(0.98);
+  }
+}
