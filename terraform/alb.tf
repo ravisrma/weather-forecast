@@ -38,7 +38,7 @@ resource "aws_security_group" "load_balancer_security_group" {
 
 resource "aws_lb_target_group" "target_group" {
   name        = "${var.app_name}-${var.app_environment}-tg"
-  port        = 80
+  port        = 4173
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = aws_vpc.aws-vpc.id
