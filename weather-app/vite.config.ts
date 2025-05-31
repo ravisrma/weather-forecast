@@ -18,6 +18,6 @@ export default defineConfig({
   assetsInclude: ['**/*.svg'],
   publicDir: 'public',
   preview: {
-    allowedHosts: 'all'
+    allowedHosts: true
   }
 });
