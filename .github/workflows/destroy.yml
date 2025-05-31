@@ -1,0 +1,50 @@
+name: Destroy Resources
+
+on:
+  workflow_dispatch:
+    inputs:
+      destroy:
+        description: "Set to true to destroy resources."
+        required: false
+        default: "false"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  TF_LOG: INFO
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.destroy == 'true' }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Configure AWS credentials from AWS account
+        uses: aws-actions/configure-aws-credentials@v4.0.3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3.1.2
+
+      - name: Terraform Init
+        env:
+          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+          AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_BUCKET_KEY_NAME }}
+        run: terraform init -backend-config="bucket=${AWS_BUCKET_NAME}" -backend-config="key=${AWS_BUCKET_KEY_NAME}" -backend-config="region=${AWS_REGION}"
+
+      - name: Terraform Destroy
+        run: |
+          terraform destroy --var-file terraform.tfvars -auto-approve
