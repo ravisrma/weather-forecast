@@ -18,7 +18,7 @@ export default defineConfig({
   assetsInclude: ['**/*.svg'],
   publicDir: 'public',
   preview: {
-    allowedHosts: 'true'
+    allowedHosts: 'true',
     port: 4173
   }
 });
