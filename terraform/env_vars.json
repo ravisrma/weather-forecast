@@ -1,0 +1,5 @@
+[
+    { "name": "app_name", "value": "weather-forecast" },
+    { "name": "app_environment", "value": "prod" },
+    { "name": "AWS_REGION_NAME", "value": "ap-south-1" }
+  ]
