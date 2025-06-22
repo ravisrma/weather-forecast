@@ -11,3 +11,4 @@ app_environment = "prod"
 # these are used for route53
 route53_zone_id     = "Z10071467DLAGMP0KJMM"
 route53_record_name = "ravicloudexper.online"
+ssl_certificate_arn = "arn:aws:acm:ap-south-1:522814736852:certificate/94b08b0d-008a-4df9-a8c3-97fcda5e4fe5"

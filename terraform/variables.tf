@@ -48,3 +48,7 @@ variable "route53_record_name" {
   description = "The DNS name for the ALB (e.g., app.example.com)"
   type        = string
 }
+variable "ssl_certificate_arn" {
+  description = "ARN of the SSL certificate"
+  type        = string
+}

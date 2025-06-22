@@ -16,8 +16,8 @@ resource "aws_security_group" "load_balancer_security_group" {
   vpc_id = aws_vpc.aws-vpc.id
 
   ingress {
-    from_port        = 80
-    to_port          = 80
+    from_port        = 443
+    to_port          = 443
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
@@ -61,8 +61,11 @@ resource "aws_lb_target_group" "target_group" {
 
 resource "aws_lb_listener" "listener" {
   load_balancer_arn = aws_alb.application_load_balancer.id
-  port              = "80"
-  protocol          = "HTTP"
+  port              = "443"
+  protocol          = "HTTPS"
+
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = var.ssl_certificate_arn # Replace with your SSL certificate ARN
 
   default_action {
     type             = "forward"
@@ -82,4 +85,3 @@ resource "aws_route53_record" "alb_dns_record" {
     evaluate_target_health = true
   }
 }
-##
